@@ -1,6 +1,13 @@
 # cse210-ww-student-template
 This is the starter code for students in the worldwide content version of CSE 210.
 
+<!-- Useful commands: 
+Exit 
+> :q!  
+press the Escape key a couple of times and then type :q! (the : tells it you are entering a command, the q says you want to quit, and the ! says you are not worried about saving changes).
+-->
+
+
 <!-- 
 Student: Leonardo Severo ELias
 Assignment: Practice working with Git by doing a commit in the main.
