@@ -1,10 +1,10 @@
 /*
 Assignment: Prompt the user for their first name. Then, prompt them for their last name. Display the text back all on one line saying, "Your name is last-name, first-name, last-name"
 
-| What is your first name? Scott
-| What is your last name? Burton
+| What is your first name? Scott (print+input)
+| What is your last name? Burton (print+input)
 |
-| Your name is Burton, Scott Burton.
+| Your name is Burton, Scott Burton. (print formated string)
 
 Goal: write a program that asks for your name and repeats it back in this way.
 */ 
