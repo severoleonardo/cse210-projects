@@ -78,8 +78,7 @@ public class Journal
 
             Console.WriteLine("Journal loaded successfully.");
         }
-        // Showing Creativity and Exceeding Requirements 
-        // If the exception is a FileNotFoundException, it displays a message indicating that the file was not found along with the file name.
+        // Handle file-related exceptions
         catch (Exception ex) 
         {
             Console.WriteLine("\n-------------------------");

@@ -1,3 +1,6 @@
+// Showing Creativity and Exceeding Requirements 
+// Added a treatment to the LoadFromFile method of the Journal class. If the user types the file name incorrectly, and the exception is FileNotFoundException, a message indicating that the file was not found will be displayed along with the file name.
+
 class Program
 {
     static void Main(string[] args)
