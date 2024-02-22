@@ -1,4 +1,5 @@
-public class Transaction
+// Represents a single transaction
+public class Transaction 
 {
     public int Id { get; private set; }
     public decimal Amount { get; private set; }
@@ -6,6 +7,7 @@ public class Transaction
     public string Description { get; private set; }
     public Category Category { get; private set; }
 
+    // Initializes a new instance of the Transaction class.
     public Transaction(int id, decimal amount, DateTime date, string description, Category category)
     {
         Id = id;

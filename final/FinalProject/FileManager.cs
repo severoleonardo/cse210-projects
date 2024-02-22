@@ -1,8 +1,7 @@
 using Newtonsoft.Json; // Using Newtonsoft.Json for JsonConvert
 
-public class FileManager
+public class FileManager // Manages saving and loading transactions to and from a file
 {
-    // Example methods for saving and loading transactions using JSON for simplicity
     public void SaveTransactions(IEnumerable<Transaction> transactions, string filePath)
     {
         var json = JsonConvert.SerializeObject(transactions);

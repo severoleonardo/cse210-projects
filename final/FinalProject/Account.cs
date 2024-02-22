@@ -1,10 +1,10 @@
-public class Account
+public class Account // Represents a single account with a list of transactions
 {
-    private List<Transaction> transactions = new List<Transaction>();
+    private List<Transaction> _transactions = new List<Transaction>();
 
-    public IReadOnlyList<Transaction> Transactions => transactions.AsReadOnly();
+    public IReadOnlyList<Transaction> Transactions => _transactions.AsReadOnly();
 
-    public void AddTransaction(Transaction transaction) => transactions.Add(transaction);
-    public void RemoveTransaction(int transactionId) => transactions.RemoveAll(t => t.Id == transactionId);
-    public decimal CalculateBalance() => transactions.Sum(t => t.Amount);
+    public void AddTransaction(Transaction transaction) => _transactions.Add(transaction);
+    public void RemoveTransaction(int transactionId) => _transactions.RemoveAll(t => t.Id == transactionId);
+    public decimal CalculateBalance() => _transactions.Sum(t => t.Amount);
 }

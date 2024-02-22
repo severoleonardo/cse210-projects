@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 
 class Program
 {
-    private static Account account = new Account();
-    private static List<Category> categories = new List<Category>();
-    private static FileManager fileManager = new FileManager();
-    private static List<Goal> goals = new List<Goal>();
+    private static Account _account = new Account();
+    private static List<Category> _categories = new List<Category>();
+    private static FileManager _fileManager = new FileManager();
+    private static List<Goal> _goals = new List<Goal>();
 
     static void Main(string[] args)
     {
@@ -15,7 +15,7 @@ class Program
         LoadData();
         
         bool exit = false;
-        while (!exit)
+        while (!exit) // Main menu loop
         {
             Console.WriteLine("\nWhat would you like to do?");
             Console.WriteLine("1. Add a Transaction");
@@ -48,7 +48,7 @@ class Program
         }
     }
 
-    private static void AddTransactionUI()
+    private static void AddTransactionUI() // Add a new transaction
     {
         Console.WriteLine("\n--- Add a New Transaction ---");
         // Implementation details for adding a transaction
@@ -65,32 +65,32 @@ class Program
         var categoryName = Console.ReadLine();
 
         //Check if the category already exists, if not, add it
-        var category = categories.FirstOrDefault(c => c.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase));
+        var category = _categories.FirstOrDefault(c => c.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase));
         if (category == null)
         {
             category = new Category(categoryName);
-            categories.Add(category); // Add the new category to the list
+            _categories.Add(category); // Add the new category to the list
         }
 
         // Create a new Transaction object with the collected details
-        var transaction = new Transaction(account.Transactions.Count + 1, amount, date, description, category);
-        account.AddTransaction(transaction); // Add the transaction to the account
+        var transaction = new Transaction(_account.Transactions.Count + 1, amount, date, description, category);
+        _account.AddTransaction(transaction); // Add the transaction to the account
 
         Console.WriteLine("Transaction added successfully!");
     }
 
-    private static void ViewBalanceAndTransactions()
+    private static void ViewBalanceAndTransactions() // View balance and transactions
     {
         Console.WriteLine("\n--- Your Balance and Transactions ---");
-        foreach (var transaction in account.Transactions.OrderBy(t => t.Date))
+        foreach (var transaction in _account.Transactions.OrderBy(t => t.Date))
         {
               Console.WriteLine($"{transaction.Date.ToShortDateString()}: {transaction.Description} - {transaction.Amount:C} in {transaction.Category.Name}");
         }
-        Console.WriteLine($"Current Balance: {account.CalculateBalance():C}");
+        Console.WriteLine($"Current Balance: {_account.CalculateBalance():C}");
 
     }
 
-    private static void ManageGoalsUI()
+    private static void ManageGoalsUI() // Manage financial goals
     {
         bool back = false;
         while (!back)
@@ -120,7 +120,7 @@ class Program
         }
     }
 
-    private static void AddGoalUI()
+    private static void AddGoalUI() // Add a new goal
     {
         Console.WriteLine("\nEnter Goal Description:");
         var description = Console.ReadLine();
@@ -135,26 +135,26 @@ class Program
         var goalType = Console.ReadLine();
 
         Goal goal = goalType?.ToLower() == "save"
-            ? new SavingGoal(goals.Count + 1, targetAmount, deadline, description)
-            : new SpendingGoal(goals.Count + 1, targetAmount, deadline, description);
-        goals.Add(goal);
+            ? new SavingGoal(_goals.Count + 1, targetAmount, deadline, description)
+            : new SpendingGoal(_goals.Count + 1, targetAmount, deadline, description);
+        _goals.Add(goal);
         Console.WriteLine("Goal added successfully!");
     }
 
-    private static void ViewGoals()
+    private static void ViewGoals() // View all financial goals
     {
         Console.WriteLine("\n--- Your Goals ---");
-        foreach (var goal in goals)
+        foreach (var goal in _goals)
         {
             Console.WriteLine($"{goal.ProgressReport()}");
         }
-        if (goals.Count == 0)
+        if (_goals.Count == 0)
         {
             Console.WriteLine("No goals set yet.");
         }
     }
 
-    private static void LoadData()
+    private static void LoadData() // Load transactions and goals from files
     {
         // Load transactions
         var transactionsFilePath = "transactions.json";
@@ -166,7 +166,7 @@ class Program
             {
                 foreach (var transaction in loadedTransactions)
                 {
-                    account.AddTransaction(transaction);
+                    _account.AddTransaction(transaction);
                 }
             }
         }
@@ -180,17 +180,17 @@ class Program
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
-            goals = loadedGoals ?? new List<Goal>();    
+            _goals = loadedGoals ?? new List<Goal>();    
         }
     }
-    private static void SaveData()
+    private static void SaveData() // Save transactions and goals to files
     {
         // Save transactions
-        var transactionsJson = JsonConvert.SerializeObject(account.Transactions, Formatting.Indented);
+        var transactionsJson = JsonConvert.SerializeObject(_account.Transactions, Formatting.Indented);
         File.WriteAllText("transactions.json", transactionsJson);
 
         // Save goals with type information to distinguish between SavingGoal and SpendingGoal
-        var goalsJson = JsonConvert.SerializeObject(goals, Formatting.Indented, new JsonSerializerSettings
+        var goalsJson = JsonConvert.SerializeObject(_goals, Formatting.Indented, new JsonSerializerSettings
         {
             TypeNameHandling = TypeNameHandling.Auto
         });

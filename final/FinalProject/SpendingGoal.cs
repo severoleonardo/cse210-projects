@@ -1,22 +1,21 @@
-public class SpendingGoal : Goal
+public class SpendingGoal : Goal // Represents a financial goal to spend no more than a target amount by a deadline.
 {
-    private decimal spentAmount; // Amount spent toward the goal
+    private decimal _spentAmount; // Amount spent toward the goal
     public SpendingGoal(int id, decimal targetAmount, DateTime deadline, string description)
         : base(id, targetAmount, deadline, description) {}
 
-    public void RecordSpending(decimal amount)
+    public void RecordSpending(decimal amount) // Records spending toward the goal.
     {
-        spentAmount += amount;
+        _spentAmount += amount;
     }
 
-    public override bool IsGoalMet()
+    public override bool IsGoalMet() // Determines whether the financial goal has been met.
     {
-        // Implementation specific to SpendingGoal
-        return spentAmount <= TargetAmount;
+        return _spentAmount <= TargetAmount;
     }
 
-    public override string ProgressReport()
+    public override string ProgressReport() // Generates a progress report for the goal.
     {
-        return $"Spending Goal ('{Description}'): Target = {TargetAmount:C}, Spent = {spentAmount:C}, Remaining = {TargetAmount - spentAmount:C}, Deadline = {Deadline.ToShortDateString()}, Goal Met: {IsGoalMet()}";
+        return $"Spending Goal ('{Description}'): Target = {TargetAmount:C}, Spent = {_spentAmount:C}, Remaining = {TargetAmount - _spentAmount:C}, Deadline = {Deadline.ToShortDateString()}, Goal Met: {IsGoalMet()}";
     }
 }
